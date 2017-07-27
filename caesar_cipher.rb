@@ -5,12 +5,12 @@ get "/" do
   shift_factor = params["shift_factor"].to_i
   message      = params["message"] || ""
 
-  encripted_message = encript(message, shift_factor)
+  encrypted_message = encrypt(message, shift_factor)
 
-  erb :index, locals: { encripted_message: encripted_message }
+  erb :index, locals: { encrypted_message: encrypted_message }
 end
 
-def encript(message, shift_factor)
+def encrypt(message, shift_factor)
   lowercase       = [*(65..90)]
   uppercase       = [*(97..122)]
   character_bytes = [lowercase, uppercase]
