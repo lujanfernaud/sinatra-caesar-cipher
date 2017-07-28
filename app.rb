@@ -7,7 +7,7 @@ get "/" do
   shift_factor = params["shift_factor"].to_i
   message      = params["message"] || ""
 
-  encrypted_message = encrypt(message, shift_factor)
+  encrypted_message = CaesarCipher.encrypt(message, shift_factor)
 
   erb :index, locals: { encrypted_message: encrypted_message }
 end

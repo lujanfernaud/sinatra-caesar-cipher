@@ -1,7 +1,8 @@
-describe "Caesar Cipher" do
+describe CaesarCipher do
   describe "encrypt" do
     it "encrypts message" do
-      expect(encrypt("This is a test.", 3)).to eq("Wklv lv d whvw.")
+      expect(described_class.encrypt("This is a test.", 3))
+        .to eq("Wklv lv d whvw.")
     end
   end
 end
