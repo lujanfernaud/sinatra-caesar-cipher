@@ -16,9 +16,11 @@
     <input type="submit" value="Encrypt">
   </form>
 
-  <h3>Encrypted message:</h3>
+  <% unless encrypted_message.empty? %>
+    <h3>Encrypted message:</h3>
 
-  <p><%= encrypted_message %></p>
+    <p><%= encrypted_message %></p>
+  <% end %>
 
 </body>
 </html>
