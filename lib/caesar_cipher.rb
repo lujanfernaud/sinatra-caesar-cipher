@@ -8,6 +8,10 @@ class CaesarCipher
     new.encrypt(message, shift_factor)
   end
 
+  def self.decrypt(message, shift_factor)
+    new.decrypt(message, shift_factor)
+  end
+
   def initialize
     @new_message = ""
   end
@@ -16,6 +20,15 @@ class CaesarCipher
     message.each_byte do |character|
       select_case_for(character)
       new_message << select_new(character, shift_factor)
+    end
+
+    new_message
+  end
+
+  def decrypt(message, shift_factor)
+    message.each_byte do |character|
+      select_case_for(character)
+      new_message << select_new(character, - shift_factor)
     end
 
     new_message

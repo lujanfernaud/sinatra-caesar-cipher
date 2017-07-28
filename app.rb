@@ -6,8 +6,13 @@ require "./lib/caesar_cipher"
 get "/" do
   shift_factor = params["shift_factor"].to_i
   message      = params["message"] || ""
+  encrypt      = params["encrypt"]
 
-  encrypted_message = CaesarCipher.encrypt(message, shift_factor)
+  processed_message = if encrypt
+                        CaesarCipher.encrypt(message, shift_factor)
+                      else
+                        CaesarCipher.decrypt(message, shift_factor)
+                      end
 
-  erb :index, locals: { encrypted_message: encrypted_message }
+  erb :index, locals: { processed_message: processed_message, encrypt: encrypt }
 end

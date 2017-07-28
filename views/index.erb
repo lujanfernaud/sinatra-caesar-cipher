@@ -11,15 +11,20 @@
   <form>
     <label for="shift-factor">Shift factor:</label>
     <input type="number" name="shift_factor" id="shift-factor" value="3" style="width: 30px">
-    <label for="message">Message to encrypt:</label>
+    <label for="message">Message:</label>
     <input type="text" name="message" id="message" style="width: 350px" autofocus>
-    <input type="submit" value="Encrypt">
+    <input type="submit" name="encrypt" value="Encrypt">
+    <input type="submit" name="decrypt" value="Decrypt">
   </form>
 
-  <% unless encrypted_message.empty? %>
-    <h3>Encrypted message:</h3>
+  <% unless processed_message.empty? %>
+    <% if encrypt %>
+      <h3>Encrypted message:</h3>
+    <% else %>
+      <h3>Decrypted message:</h3>
+    <% end %>
 
-    <p><%= encrypted_message %></p>
+    <p><%= processed_message %></p>
   <% end %>
 
 </body>
