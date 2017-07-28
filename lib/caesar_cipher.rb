@@ -1,7 +1,5 @@
 # Holds the logic for encrypting messages.
 class CaesarCipher
-  attr_reader :new_message
-
   LOWERCASE       = [*(65..90)].freeze
   UPPERCASE       = [*(97..122)].freeze
   CHARACTER_BYTES = [LOWERCASE, UPPERCASE].freeze
@@ -16,9 +14,8 @@ class CaesarCipher
 
   def encrypt(message, shift_factor)
     message.each_byte do |character|
-      character_array = build_character_array(character)
-      new_character = find_new_character(character_array, character, shift_factor)
-      new_message << new_character.chr
+      select_case_for(character)
+      new_message << select_new(character, shift_factor)
     end
 
     new_message
@@ -26,19 +23,22 @@ class CaesarCipher
 
   private
 
+  attr_reader :new_message, :characters
+
   # Select only the sub array that contains 'character' to keep the same case.
-  def build_character_array(character)
-    CHARACTER_BYTES
-      .select { |sub_array| sub_array.include?(character) }
-      .flatten
+  def select_case_for(character)
+    @characters = CHARACTER_BYTES
+                  .select { |sub_array| sub_array.include?(character) }
+                  .flatten
   end
 
-  def find_new_character(character_array, character, shift_factor)
-    # If the array is empty then 'character' is not a letter.
-    return character if character_array.empty?
+  def select_new(character, shift_factor)
+    # If @characters is empty then 'character' is not a letter.
+    return character if characters.empty?
 
-    character_position      = character_array.index(character)
-    character_array_rotated = character_array.rotate(shift_factor)
-    character_array_rotated[character_position]
+    character_position = characters.index(character)
+    characters_rotated = characters.rotate(shift_factor)
+
+    characters_rotated[character_position].chr
   end
 end
